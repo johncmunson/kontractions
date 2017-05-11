@@ -51,7 +51,7 @@ const longformsTable = {
     "must have": "must've",
     "must not": "mustn't",
     "need not": "needn't",
-    "not have": "not've",
+    // "not have": "not've",
     "old": "ol'",
     "ought not": "oughtn't",
     "shall not": "shan't",
