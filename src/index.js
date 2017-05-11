@@ -33,11 +33,11 @@ const kontractions = {
         const keys = Object.keys(this.contractionsTable)
         // for every contraction...
         for (let i = 0; i < keys.length; i++) {
-            // get longform length
+            // get contraction character length
             const length = keys[i].length
             // find all the places it occurs in the string
             const indices = this.getIndicesOf(keys[i], str).sort((a,b) => b - a)
-            // at each location, replace longform with contraction
+            // at each location, replace longform with contraction(s)
             for (let g = 0; g < indices.length; g++) {
                 let longformLength = this.contractionsTable[keys[i]].length
                 let insertion
@@ -56,7 +56,7 @@ const kontractions = {
         const keys = Object.keys(this.longformsTable).sort((a,b) => b.length - a.length)
         // for every longform...
         for (let i = 0; i < keys.length; i++) {
-            // get longform length
+            // get longform character length
             const length = keys[i].length
             // find all the places it occurs in the string
             const indices = this.getIndicesOf(keys[i], str).sort((a,b) => b - a)

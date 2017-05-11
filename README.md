@@ -1,41 +1,39 @@
-# [kontractions](https://github.com/johncmunson/kontractions)
-
-[![NPM version](http://img.shields.io/npm/v/kontractions.svg?style=flat-square)](https://www.npmjs.com/package/kontractions)
-[![NPM downloads](http://img.shields.io/npm/dm/kontractions.svg?style=flat-square)](https://www.npmjs.com/package/kontractions)
-[![Build Status](http://img.shields.io/travis/johncmunson/kontractions/master.svg?style=flat-square)](https://travis-ci.org/johncmunson/kontractions)
-[![Coverage Status](https://img.shields.io/coveralls/johncmunson/kontractions.svg?style=flat-square)](https://coveralls.io/johncmunson/kontractions)
-[![Dependency Status](http://img.shields.io/david/johncmunson/kontractions.svg?style=flat-square)](https://david-dm.org/johncmunson/kontractions)
-
-> Handle contractions with ease.
-
-### How to Install
-
-```sh
-$ npm install kontractions
+```
+    __                    __                           __     _                        
+   / /__  ____    ____   / /_   _____  ____ _  _____  / /_   (_)  ____    ____    _____
+  / //_/ / __ \  / __ \ / __/  / ___/ / __ `/ / ___/ / __/  / /  / __ \  / __ \  / ___/
+ / ,<   / /_/ / / / / // /_   / /    / /_/ / / /__  / /_   / /  / /_/ / / / / / (__  )
+/_/|_|  \____/ /_/ /_/ \__/  /_/     \__,_/  \___/  \__/  /_/   \____/ /_/ /_/ /____/  
 ```
 
-### Getting Started
+#### A small javascript library for converting to and fro' contractions.
 
-...
+## Install
 
-### How to Test
+`npm i --save kontractions` or `yarn add kontractions`
 
-Run one, or a combination of the following commands to lint and test your code:
+## Basic Usage
 
-```sh
-$ npm run lint          # Lint the source code with ESLint
-$ npm test              # Run unit tests with Mocha
-$ npm run test:watch    # Run unit tests with Mocha, and watch files for changes
-$ npm run test:cover    # Run unit tests with code coverage by Istanbul
-```
+#### ES6
+`import kontractions from 'kontractions'`
 
-To launch the documentation site, run:
+#### Node Modules
+`const kontractions = require('kontractions')`
 
-```sh
-$ npm install -g easystatic
-$ npm start
-```
+#### API
+- `kontractions.contract(string)`: I did not do it. => I didn't do it.
+- `kontractions.expand(string)`: I didn't do it. => I did not do it.  ||  I hope there's more food. => I hope (( there has || there is )) more food.
+- `kontractions.updateContractions(object)`: object takes the form of... `{"they'd've": ['they would have']}`
+- `kontractions.updateLongforms(object)`: object takes the form of... `{"they would have": "they'd've"}`
 
-### License
+## Contributions
 
-MIT © 2016 John C. Munson
+All contributors will receive proper attribution, as outlined in the awesome [All-Contributors](https://github.com/kentcdodds/all-contributors) specification developed by open-source superstar [Kent C. Dodds](https://twitter.com/kentcdodds?lang=en).
+
+## Development Setup
+
+This component was bootstrapped with [React CDK](https://github.com/kriasoft/babel-starter-kit). To get started with development, fork this repo and make edits to the `src` directory.
+
+## License
+
+*kontractions* is available under MIT. See LICENSE for more details.
