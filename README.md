@@ -27,8 +27,8 @@
 - `kontractions.updateLongforms(object)`: object takes the form of... `{"they would have": "they'd've"}`
 
 #### Defaults
-- [Contractions](https://github.com/johncmunson/kontractions/blob/master/src/contractionsTable.js)
-- [Longforms](https://github.com/johncmunson/kontractions/blob/master/src/longformsTable.js)
+- [Contractions](https://github.com/johncmunson/kontractions/blob/master/src/index.js)
+- [Longforms](https://github.com/johncmunson/kontractions/blob/master/src/index.js)
 
 ## Contributions
 
