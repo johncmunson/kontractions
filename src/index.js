@@ -39,7 +39,14 @@ const kontractions = {
             const indices = this.getIndicesOf(keys[i], str).sort((a,b) => b - a)
             // at each location, replace longform with contraction
             for (let g = 0; g < indices.length; g++) {
-                str = spliceString(str, indices[g], length, `(( ${this.contractionsTable[keys[i]].join(' | ')} ))`)
+                let longformLength = this.contractionsTable[keys[i]].length
+                let insertion
+                if (longformLength > 1) {
+                    insertion = `(( ${this.contractionsTable[keys[i]].join(' | ')} ))`
+                } else {
+                    insertion = this.contractionsTable[keys[i]]
+                }
+                str = spliceString(str, indices[g], length, insertion)
             }
         }
         return str
