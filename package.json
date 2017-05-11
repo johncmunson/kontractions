@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "kontractions",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Handle contractions with ease.",
   "repository": "johncmunson/kontractions",
   "author": "John C. Munson",
