@@ -42,6 +42,7 @@ const kontractions = {
                 str = spliceString(str, indices[g], length, `(( ${this.contractionsTable[keys[i]].join(' | ')} ))`)
             }
         }
+        return str
     },
     contract: function(str) {
         str = str.toLowerCase()
