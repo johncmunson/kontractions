@@ -6,10 +6,10 @@ import longformsTable from './longformsTable.js'
 const kontractions = {
     contractionsTable,
     longformsTable,
-    addContractions: function(obj) {
+    updateContractions: function(obj) {
         Object.assign(this.contractionsTable, obj)
     },
-    addLongforms: function(obj) {
+    updateLongforms: function(obj) {
         Object.assign(this.longformsTable, obj)
     },
     getIndicesOf: function(searchStr, str) {
@@ -34,7 +34,8 @@ const kontractions = {
         // for every contraction...
         for (let i = 0; i < keys.length; i++) {
             // find all the places it occurs in the string
-            const indices = this.getIndicesOf(keys[i], str)
+            const indices = this.getIndicesOf(keys[i], str).sort((a,b) => b - a)
+
 
         }
     },
@@ -49,7 +50,7 @@ const kontractions = {
             const indices = this.getIndicesOf(keys[i], str).sort((a,b) => b - a)
             // at each location, replace longform with contraction
             for (let g = 0; g < indices.length; g++) {
-                str = spliceString(str, indices[g], length, this.longformsTable[keys[i]])
+                str = spliceString(str, indices[g], length, `(( ${this.contractionsTable[keys[i]].join(' | ')} ))`)
             }
         }
         return str
