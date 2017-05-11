@@ -33,10 +33,14 @@ const kontractions = {
         const keys = Object.keys(this.contractionsTable)
         // for every contraction...
         for (let i = 0; i < keys.length; i++) {
+            // get longform length
+            const length = keys[i].length
             // find all the places it occurs in the string
             const indices = this.getIndicesOf(keys[i], str).sort((a,b) => b - a)
-
-
+            // at each location, replace longform with contraction
+            for (let g = 0; g < indices.length; g++) {
+                str = spliceString(str, indices[g], length, `(( ${this.contractionsTable[keys[i]].join(' | ')} ))`)
+            }
         }
     },
     contract: function(str) {
@@ -50,7 +54,7 @@ const kontractions = {
             const indices = this.getIndicesOf(keys[i], str).sort((a,b) => b - a)
             // at each location, replace longform with contraction
             for (let g = 0; g < indices.length; g++) {
-                str = spliceString(str, indices[g], length, `(( ${this.contractionsTable[keys[i]].join(' | ')} ))`)
+                str = spliceString(str, indices[g], length, this.longformsTable[keys[i]])
             }
         }
         return str
