@@ -61,6 +61,7 @@
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "build": "node tools/build",
     "prepublish": "npm run build",
+    "deploy": "npm publish dist",
     "publish:docs": "easystatic deploy docs --repo johncmunson/kontractions",
     "start": "easystatic start docs"
   }
