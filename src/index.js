@@ -52,6 +52,7 @@ const kontractions = {
                 str = spliceString(str, indices[g], length, this.longformsTable[keys[i]])
             }
         }
+        return str
     }
 }
 
