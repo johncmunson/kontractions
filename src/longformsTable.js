@@ -174,4 +174,4 @@ const longformsTable = {
     "you would": "you'd"
 }
 
-export default longformsTable
+module.exports = longformsTable

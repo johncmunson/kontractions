@@ -128,4 +128,4 @@ const contractionsTable = {
     "you'ven't": ['you have not']
 }
 
-export default contractionsTable
+module.exports = contractionsTable

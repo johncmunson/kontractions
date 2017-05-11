@@ -1,7 +1,6 @@
-// import spliceString from 'splice-string'
 const spliceString = require('splice-string')
-import contractionsTable from './contractionsTable.js'
-import longformsTable from './longformsTable.js'
+const contractionsTable = require('./contractionsTable.js')
+const longformsTable = require('./longformsTable.js')
 
 const kontractions = {
     contractionsTable,
@@ -69,4 +68,4 @@ const kontractions = {
     }
 }
 
-export default kontractions
+module.exports = kontractions

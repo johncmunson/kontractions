@@ -1,0 +1,15 @@
+{
+  "name": "kontractions",
+  "version": "0.0.9",
+  "description": "Handle contractions with ease.",
+  "repository": "johncmunson/kontractions",
+  "author": "John C. Munson",
+  "license": "MIT",
+  "keywords": [],
+  "main": "index.js",
+  "jsnext:main": "index.es6.js",
+  "dependencies": {
+    "babel-runtime": "^6.6.1",
+    "splice-string": "^2.0.0"
+  }
+}
