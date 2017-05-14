@@ -21,14 +21,26 @@
 `const kontractions = require('kontractions')`
 
 #### API
-- `kontractions.contract(string)`: I did not do it. => i didn't do it.
-- `kontractions.expand(string)`: I didn't do it. => i did not do it.  ||  I hope there's more food. => i hope (( there has || there is )) more food.
-- `kontractions.updateContractions(object)`: object takes the form of... `{"they'd've": ['they would have']}`
-- `kontractions.updateLongforms(object)`: object takes the form of... `{"they would have": "they'd've"}`
+- `kontractions.contract(string)`: Converts a string containing longforms to a string containing contractions.
+- `kontractions.expand(string)`: Converts a string containing contractions to a string containing longforms, or _the various possible longforms_.
+- `kontractions.updateContractions(object)`: Accepts an object and can be used for extending, modifying, or disabling the built-in default contractions.
+- `kontractions.updateLongforms(object)`: Accepts an object and can be used for extending, modifying, or disabling the built-in default longforms.
+
+#### Examples
+- `kontractions.contract("I did not do it.")` //=> i didn't do it.
+- `kontractions.expand("I didn't do it.")` //=> i did not do it.
+- `kontractions.expand("I hope there's more food.")` //=> i hope (( there has || there is )) more food.
+- `kontractions.updateContractions({"they'd've": ['they would have']})` //=> The contraction _they'd've_ will now be recognized when using the `contract` method.
+- `kontractions.updateLongforms({"they would have": "they'd've"})` //=> The longform _they would have_ will now be recognized when using the `expand` method.
+- `kontractions.updateContractions({"they'd've": ['they would have']})` //=> Pass a falsy value to disable a contraction.
+- `kontractions.updateLongforms({"they would have": false})` //=> Pass a falsy value to disable a longform.
 
 #### Defaults
 - [Contractions](https://github.com/johncmunson/kontractions/blob/master/src/index.js)
 - [Longforms](https://github.com/johncmunson/kontractions/blob/master/src/index.js)
+
+#### Philosophy
+This library aims to one thing and do it well. With regards to the `expand` method, while it would be possible to examine the context in which contractions are used to determine the proper expansion, that will likely remain beyond the scope of this package. Therefore, consumers will need to implement their own logic to examine the output and pick the correct expansion.
 
 ## Contributions
 
