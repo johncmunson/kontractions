@@ -31,4 +31,24 @@ describe('kontractions', () => {
 
   })
 
+  describe('kontractions.updateContractions()', () => {
+
+    it("should return... 'she can't have it.'", () => {
+      kontractions.updateContractions({"can't": false})
+      const expandedString = kontractions.expand("She can't have it.")
+      expect(expandedString).to.be.equal("she can't have it.")
+    })
+
+  })
+
+  describe('kontractions.updateLongforms()', () => {
+
+    it("should return... 'it is cold outside.'", () => {
+      kontractions.updateLongforms({"it is": false})
+      const contractedString = kontractions.contract("it is cold outside.")
+      expect(contractedString).to.be.equal("it is cold outside.")
+    })
+
+  })
+
 })

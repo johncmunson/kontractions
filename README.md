@@ -40,7 +40,7 @@
 - [Longforms](https://github.com/johncmunson/kontractions/blob/master/src/index.js)
 
 #### Philosophy
-This library aims to one thing and do it well. With regards to the `expand` method, while it would be possible to examine the context in which contractions are used to determine the proper expansion, that will likely remain beyond the scope of this package. Therefore, consumers will need to implement their own logic to examine the output and pick the correct expansion.
+This library aims to do one thing and do it well. With regards to the `expand` method, while it would be possible to examine the context in which contractions are used to determine the proper expansion, that will likely remain beyond the scope of this package. Therefore, consumers will need to implement their own logic to examine the output and pick the correct expansion.
 
 ## Contributions
 
