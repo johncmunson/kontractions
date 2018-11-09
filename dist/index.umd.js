@@ -388,6 +388,111 @@
                 }
             }
             return str;
+        },
+        expandToList: function expandToList(input) {
+            var text = String(input).toLowerCase();
+            var indices = this.findContractions(text);
+            var graph = this.buildGraph(text, indices);
+            var expanded = this.dfsExpand(graph);
+            return expanded;
+        },
+        findContractions: function findContractions(text) {
+            var found = [];
+            var result = [];
+            for (var contraction in this.contractionsTable) {
+                var indices = this.getIndicesOf(contraction, text);
+                for (var i = 0; i < indices.length; ++i) {
+                    found.push({ "Index": indices[i], "Contraction": contraction, "Length": contraction.length });
+                }
+            }
+            // Sort by index and then by length, with longer contractions coming first
+            found.sort(function (a, b) {
+                return 100 * a["Index"] - a["Length"] - (100 * b["Index"] - b["Length"]);
+            });
+            for (var _i = 0; _i < found.length;) {
+                result.push(found[_i]);
+                var next = _i + 1;
+                // Take the longest contraction at the current index, e.g. [ "y'all'll've", "y'all'll", "y'all" ]
+                while (next < found.length && found[next]["Index"] == found[_i]["Index"]) {
+                    ++next;
+                }
+                // Skip contractions that are substrings of other contractions, e.g. he'll and she'll
+                while (next < found.length && found[next]["Index"] < found[_i]["Index"] + found[_i]["Length"]) {
+                    ++next;
+                }
+                _i = next;
+            }
+            return result;
+        },
+        /*                   +-----------+
+         *                +--+ there is  +--+
+         *    +--------+  |  +-----------+  |  +-----------+
+         *    | i hope +--+                 +--+ more food |
+         *    +--------+  |  +-----------+  |  +-----------+
+         *                +--+ there has +--+
+         *                   +-----------+
+         */
+        buildGraph: function buildGraph(text, indices) {
+            var graph = [];
+            var offset = 0;
+            for (var i = 0; i < indices.length; ++i) {
+                var current = graph.length;
+                var contractions = this.contractionsTable[indices[i]["Contraction"]];
+                graph.push({ "Text": text.slice(offset, indices[i]["Index"]), "Edges": [] });
+                for (var j = 0; j < contractions.length; ++j) {
+                    graph[current]["Edges"].push(graph.length);
+                    graph.push({ "Text": contractions[j], "Edges": [current + contractions.length + 1] });
+                }
+                offset = indices[i]["Index"] + indices[i]["Contraction"].length;
+            }
+            graph.push({ "Text": text.slice(offset), "Edges": [] });
+            return graph;
+        },
+        dfsExpand: function dfsExpand(graph) {
+            var path = [];
+            var stack = [0];
+            var parents = { 0: null };
+            var expanded = [];
+            while (stack.length > 0) {
+                var current = stack.pop();
+                if (graph[current]["Edges"].length == 0) {
+                    var pieces = [];
+                    var node = current;
+                    while (node != null) {
+                        pieces.push(graph[node]["Text"]);
+                        node = parents[node];
+                    }
+                    pieces.reverse();
+                    expanded.push(pieces.join(""));
+                } else {
+                    var _iteratorNormalCompletion = true;
+                    var _didIteratorError = false;
+                    var _iteratorError = undefined;
+
+                    try {
+                        for (var _iterator = graph[current]["Edges"][Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                            var _node = _step.value;
+
+                            stack.push(_node);
+                            parents[_node] = current;
+                        }
+                    } catch (err) {
+                        _didIteratorError = true;
+                        _iteratorError = err;
+                    } finally {
+                        try {
+                            if (!_iteratorNormalCompletion && _iterator.return) {
+                                _iterator.return();
+                            }
+                        } finally {
+                            if (_didIteratorError) {
+                                throw _iteratorError;
+                            }
+                        }
+                    }
+                }
+            }
+            return expanded;
         }
     };
 

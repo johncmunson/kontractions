@@ -5,7 +5,15 @@
   "repository": "johncmunson/kontractions",
   "author": "John C. Munson",
   "license": "MIT",
-  "keywords": [],
+  "keywords": [
+    "contraction",
+    "contractions",
+    "natural",
+    "language",
+    "processing",
+    "nlp",
+    "javascript"
+  ],
   "main": "index.js",
   "jsnext:main": "index.es6.js",
   "dependencies": {
