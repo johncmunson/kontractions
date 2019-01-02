@@ -374,6 +374,88 @@ const kontractions = {
             }
         }
         return str
+    },
+    expandToList: function(input) {
+      let text = String(input).toLowerCase()
+      let indices = this.findContractions(text)
+      let graph = this.buildGraph(text, indices)
+      let expanded = this.dfsExpand(graph)
+      return expanded
+    },
+    findContractions: function(text) {
+      let found = []
+      let result = []
+      for (let contraction in this.contractionsTable) {
+        let indices = this.getIndicesOf(contraction, text)
+        for (let i = 0; i < indices.length; ++i) {
+          found.push({ "Index": indices[i], "Contraction": contraction, "Length": contraction.length })
+        }
+      }
+      // Sort by index and then by length, with longer contractions coming first
+      found.sort((a, b) => (100 * a["Index"] - a["Length"]) - (100 * b["Index"] - b["Length"]))
+      for (let i = 0; i < found.length;) {
+        result.push(found[i])
+        let next = i + 1
+        // Take the longest contraction at the current index, e.g. [ "y'all'll've", "y'all'll", "y'all" ]
+        while (next < found.length && found[next]["Index"] == found[i]["Index"]) {
+          ++next
+        }
+        // Skip contractions that are substrings of other contractions, e.g. he'll and she'll
+        while (next < found.length && found[next]["Index"] < found[i]["Index"] + found[i]["Length"]) {
+          ++next
+        }
+        i = next;
+      }
+      return result
+    },
+    /*                   +-----------+
+     *                +--+ there is  +--+
+     *    +--------+  |  +-----------+  |  +-----------+
+     *    | i hope +--+                 +--+ more food |
+     *    +--------+  |  +-----------+  |  +-----------+
+     *                +--+ there has +--+
+     *                   +-----------+
+     */
+    buildGraph: function(text, indices) {
+      let graph = []
+      let offset = 0
+      for (let i = 0; i < indices.length; ++i) {
+        let current = graph.length
+        let contractions = this.contractionsTable[indices[i]["Contraction"]]
+        graph.push({ "Text": text.slice(offset, indices[i]["Index"]), "Edges": [ ] })
+        for (let j = 0; j < contractions.length; ++j) {
+          graph[current]["Edges"].push(graph.length)
+          graph.push({ "Text": contractions[j], "Edges": [ current + contractions.length + 1 ] })
+        }
+        offset = indices[i]["Index"] + indices[i]["Contraction"].length
+      }
+      graph.push({ "Text": text.slice(offset), "Edges": [ ] })
+      return graph
+    },
+    dfsExpand: function(graph) {
+      let path = []
+      let stack = [ 0 ]
+      let parents = { 0: null }
+      let expanded = []
+      while (stack.length > 0) {
+        let current = stack.pop()
+        if (graph[current]["Edges"].length == 0) {
+          let pieces = []
+          let node = current
+          while (node != null) {
+            pieces.push(graph[node]["Text"])
+            node = parents[node]
+          }
+          pieces.reverse()
+          expanded.push(pieces.join(""))
+        } else {
+          for (let node of graph[current]["Edges"]) {
+            stack.push(node)
+            parents[node] = current
+          }
+        }
+      }
+      return expanded
     }
 }
 
